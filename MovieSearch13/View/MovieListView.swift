@@ -50,7 +50,8 @@ struct MovieListCell: View {
                     .frame(width: 120, height: 60)
                 VStack(alignment: .leading) {
                     Text(viewModel.movie.name)
-                    Text("Released: " + (viewModel.movie.releaseDate ?? ""))
+                        .bold()
+                    Text("Released: " + (viewModel.movie.releaseDate?.parseDateString() ?? ""))
                     Spacer()
                 }
                 
