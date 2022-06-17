@@ -79,6 +79,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F44453D0285CD4070061662C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F44453CE285BE2A20061662C /* APIClient.swift */,
+				F44453C8285BE26E0061662C /* Movie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F44453D1285CD40D0061662C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F44453CA285BE2740061662C /* MovieDetailViewModel.swift */,
+				F44453CC285BE28C0061662C /* MovieListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F44453D2285CD4240061662C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F45EA6BE285BCD4C0060B509 /* MovieListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F45EA6B0285BCD4C0060B509 = {
 			isa = PBXGroup;
 			children = (
@@ -102,12 +128,10 @@
 		F45EA6BB285BCD4C0060B509 /* MovieSearch13 */ = {
 			isa = PBXGroup;
 			children = (
-				F44453C8285BE26E0061662C /* Movie.swift */,
-				F44453CE285BE2A20061662C /* APIClient.swift */,
-				F44453CA285BE2740061662C /* MovieDetailViewModel.swift */,
-				F44453CC285BE28C0061662C /* MovieListViewModel.swift */,
 				F45EA6BC285BCD4C0060B509 /* MovieSearch13App.swift */,
-				F45EA6BE285BCD4C0060B509 /* MovieListView.swift */,
+				F44453D2285CD4240061662C /* View */,
+				F44453D1285CD40D0061662C /* ViewModel */,
+				F44453D0285CD4070061662C /* Model */,
 				F45EA6C0285BCD4D0060B509 /* Assets.xcassets */,
 				F45EA6C2285BCD4D0060B509 /* Preview Content */,
 			);

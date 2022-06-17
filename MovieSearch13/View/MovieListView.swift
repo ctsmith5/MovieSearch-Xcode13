@@ -17,6 +17,7 @@ struct MovieListView: View {
              ZStack {
                  Rectangle()
                      .foregroundColor(.gray)
+                     .cornerRadius(10)
                  HStack {
                      Image(systemName: "magnifyingglass")
                          .padding(8)
@@ -24,23 +25,16 @@ struct MovieListView: View {
                          .font(Font.system(size: 24))
                  }
                  .background(.white)
-                 .padding(12)
+                 .cornerRadius(6)
+                 .padding(4)
              }
              .frame(height: 24)
-             .padding(24)
+             .padding([.top],24)
+             
              ScrollView {
                  ForEach(viewModel.movieList) { movie in
                      MovieListCell(viewModel: MovieDetailViewModel(movie: movie))
                  }
-                 if !viewModel.movieList.isEmpty {
-                     Button {
-                         page += 1
-                         viewModel.fetchMovies(searchTerm: searchText, page: page)
-                     } label: {
-                         Text("Load More")
-                     }
-                 }
-
              }
              .padding([.leading, .trailing], 24)
             
@@ -54,7 +48,7 @@ struct MovieListView: View {
              .background(Color.blue)
              .foregroundColor(Color.white)
              .font(Font.system(size: 24))
-             .padding(.bottom, 24)
+             .cornerRadius(8)
 
          }
     }
@@ -68,8 +62,13 @@ struct MovieListCell: View {
                 Image(uiImage: ((UIImage(data: viewModel.image ?? Data()) ?? UIImage(systemName: "exclamationmark.icloud.fill"))!))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 60, height: 120)
-                Text(viewModel.movie.name)
+                    .frame(width: 120, height: 60)
+                VStack(alignment: .leading) {
+                    Text(viewModel.movie.name)
+                    Text("Released: " + (viewModel.movie.releaseDate ?? ""))
+                    Spacer()
+                }
+                
                 Spacer()
             }
             if let description = viewModel.movie.description {
@@ -78,6 +77,7 @@ struct MovieListCell: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
+        .padding([.top, .bottom], 8)
         .onAppear {
             viewModel.fetchImage()
         }

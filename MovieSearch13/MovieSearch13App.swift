@@ -11,9 +11,8 @@ import SwiftUI
 struct MovieSearch13App: App {
     var body: some Scene {
         WindowGroup {
-            NavigationView {
                 MovieListView()
-            }
+                    .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
