@@ -52,6 +52,7 @@ struct MovieListCell: View {
                     Text(viewModel.movie.name)
                         .bold()
                     Text("Released: " + (viewModel.movie.releaseDate?.parseDateString() ?? ""))
+                        .font(.system(size: 12))
                     Spacer()
                 }
                 
@@ -61,6 +62,7 @@ struct MovieListCell: View {
                 Text(description)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
+                    .font(.system(size: 12))
             }
         }
         .padding([.top, .bottom], 8)
