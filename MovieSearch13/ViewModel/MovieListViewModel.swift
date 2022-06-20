@@ -18,7 +18,7 @@ class MovieListViewModel: ObservableObject {
     @Published var currentText: String
     @Published var debouncedText: String
     
-    init(initialSearchString: String, delay: Double = 0.5) {
+    init(initialSearchString: String, delay: Double = 0.75) {
         _currentText = Published(initialValue: initialSearchString)
         _debouncedText = Published(initialValue: initialSearchString)
         

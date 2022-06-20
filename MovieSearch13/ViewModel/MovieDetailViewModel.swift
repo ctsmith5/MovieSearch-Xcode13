@@ -5,15 +5,14 @@
 //  Created by Colin Smith on 6/16/22.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class MovieDetailViewModel: ObservableObject {
     
     var movie: Movie
     
-    @Published var image: Data?
-    
+    @Published var image = Image(systemName: "exclamationmark.icloud.fill")
     var movieImageSubscriber: AnyCancellable?
 
     init(movie: Movie) {
@@ -27,9 +26,18 @@ class MovieDetailViewModel: ObservableObject {
             print("================================================================")
             print("IMAGE DATA FOR MOVIE: \(self.movie.name) STATUS: \($0)")
         }, receiveValue: { imageData in
-            self.image = imageData
+            self.image = self.convertImageData(imageData)
         })
     }
+    
+    func convertImageData(_ data: Data) -> Image {
+        if let uiImage = UIImage(data: data) {
+            return Image(uiImage: uiImage)
+        } else {
+            return Image(systemName: "exclamationmark.icloud.fill")
+        }
+    }
+    
 }
 
 

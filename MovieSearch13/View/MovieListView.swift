@@ -44,7 +44,7 @@ struct MovieListCell: View {
     var body: some View {
         VStack {
             HStack {
-                Image(uiImage: ((UIImage(data: viewModel.image ?? Data()) ?? UIImage(systemName: "exclamationmark.icloud.fill"))!))
+                viewModel.image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 60)
