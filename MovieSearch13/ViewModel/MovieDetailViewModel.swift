@@ -11,6 +11,7 @@ import Combine
 class MovieDetailViewModel: ObservableObject {
     
     var movie: Movie
+    let apiClient = APIClient()
     
     @Published var image: Data?
     
@@ -21,7 +22,6 @@ class MovieDetailViewModel: ObservableObject {
     }
     
     func fetchImage() {
-        let apiClient = APIClient()
         apiClient.fetchImage(for: movie)
         movieImageSubscriber = apiClient.movieImagePublisher?.sink(receiveCompletion: {
             print("================================================================")

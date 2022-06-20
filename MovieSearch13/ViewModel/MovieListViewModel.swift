@@ -12,15 +12,17 @@ class MovieListViewModel: ObservableObject {
     
     @Published var movieList: [Movie] = []
     
-    var subscriber: AnyCancellable?
+    let apiClient = APIClient()
+    
+    var movieListPopulationSubscriber: AnyCancellable?
     
     
     func fetchMovies(searchTerm: String, page: Int?) {
-        let apiClient = APIClient()
+  
         apiClient.fetchMovies(searchTerm: searchTerm)
         
         
-        subscriber = apiClient.movieListPublisher?.sink(receiveCompletion: {
+        movieListPopulationSubscriber = apiClient.movieListPublisher?.sink(receiveCompletion: {
             print ("Received completion: \($0).")
         }, receiveValue: { movieResponse in
             self.movieList = movieResponse.results

@@ -54,6 +54,11 @@ struct MovieListView: View {
     }
 }
 
+///This Struct is responsible for setting up a movie detail cell
+///
+/// - Parameters:
+/// - viewModel: The view model to be passed in with a movie. Also calls the the fetchImage function. The Image is populated asynchronously by the view model as Data() and logic is done with coelescing operators in the SwiftUI view reactively.
+
 struct MovieListCell: View {
    @ObservedObject var viewModel: MovieDetailViewModel
     var body: some View {
