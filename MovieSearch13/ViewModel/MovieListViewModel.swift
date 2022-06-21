@@ -10,19 +10,38 @@ import Combine
 
 class MovieListViewModel: ObservableObject {
     
-    @Published var movieList: [Movie] = []
     
+    private var textUpdateSubscriber: AnyCancellable?
+    private var movieListUpdateSubscriber: AnyCancellable?
+    
+    @Published var movieList: [Movie] = []
+    @Published var currentText: String
+    @Published var debouncedText: String
+
     let apiClient = APIClient()
     
-    var movieListPopulationSubscriber: AnyCancellable?
     
+    init(initialSearchString: String, delay: Double = 0.75) {
+        _currentText = Published(initialValue: initialSearchString)
+        _debouncedText = Published(initialValue: initialSearchString)
+        
+        textUpdateSubscriber =  $currentText
+            .debounce(for: .seconds(delay), scheduler: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { value in
+                print(value)
+                self.fetchMovies(searchText: value, page: 1)
+            }
+
+    }
     
-    func fetchMovies(searchTerm: String, page: Int?) {
-  
-        apiClient.fetchMovies(searchTerm: searchTerm)
+
+    func fetchMovies(searchText: String, page: Int?) {
+        apiClient.fetchMovies(searchTerm: searchText)
         
-        
-        movieListPopulationSubscriber = apiClient.movieListPublisher?.sink(receiveCompletion: {
+        movieListUpdateSubscriber = apiClient.movieListPublisher?
+            .sink(receiveCompletion: {
             print ("Received completion: \($0).")
         }, receiveValue: { movieResponse in
             self.movieList = movieResponse.results

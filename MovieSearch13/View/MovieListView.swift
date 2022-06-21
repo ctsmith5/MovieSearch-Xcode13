@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct MovieListView: View {
-    @State var searchText = ""
     @State var page = 1
-    @ObservedObject var viewModel = MovieListViewModel()
-    
+    @StateObject var viewModel = MovieListViewModel(initialSearchString: "")
     var body: some View {
         VStack {
              ZStack {
@@ -21,7 +19,7 @@ struct MovieListView: View {
                  HStack {
                      Image(systemName: "magnifyingglass")
                          .padding(8)
-                     TextField("Search For Movies...", text: $searchText)
+                     TextField("Search For Movies...", text: $viewModel.currentText)
                          .font(Font.system(size: 24))
                  }
                  .background(.white)
@@ -37,19 +35,6 @@ struct MovieListView: View {
                  }
              }
              .padding([.leading, .trailing], 24)
-            
-             Spacer()
-             Button {
-                 viewModel.fetchMovies(searchTerm: searchText, page: page)
-             } label: {
-                 Text("Search")
-             }
-             .frame(width: 200, height: 50)
-             .background(Color.blue)
-             .foregroundColor(Color.white)
-             .font(Font.system(size: 24))
-             .cornerRadius(8)
-
          }
     }
 }
@@ -64,13 +49,15 @@ struct MovieListCell: View {
     var body: some View {
         VStack {
             HStack {
-                Image(uiImage: ((UIImage(data: viewModel.image ?? Data()) ?? UIImage(systemName: "exclamationmark.icloud.fill"))!))
+                viewModel.image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 60)
                 VStack(alignment: .leading) {
                     Text(viewModel.movie.name)
-                    Text("Released: " + (viewModel.movie.releaseDate ?? ""))
+                        .bold()
+                    Text("Released: " + (viewModel.movie.releaseDate?.parseDateString() ?? ""))
+                        .font(.system(size: 12))
                     Spacer()
                 }
                 
@@ -80,6 +67,7 @@ struct MovieListCell: View {
                 Text(description)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
+                    .font(.system(size: 12))
             }
         }
         .padding([.top, .bottom], 8)
