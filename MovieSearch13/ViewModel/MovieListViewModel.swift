@@ -17,6 +17,9 @@ class MovieListViewModel: ObservableObject {
     @Published var movieList: [Movie] = []
     @Published var currentText: String
     @Published var debouncedText: String
+
+    let apiClient = APIClient()
+    
     
     init(initialSearchString: String, delay: Double = 0.75) {
         _currentText = Published(initialValue: initialSearchString)
@@ -33,10 +36,9 @@ class MovieListViewModel: ObservableObject {
 
     }
     
+
     func fetchMovies(searchText: String, page: Int?) {
-        let apiClient = APIClient()
         apiClient.fetchMovies(searchTerm: searchText)
-        
         
         movieListUpdateSubscriber = apiClient.movieListPublisher?
             .sink(receiveCompletion: {
