@@ -16,14 +16,12 @@ class MovieListViewModel: ObservableObject {
     
     @Published var movieList: [Movie] = []
     @Published var currentText: String
-    @Published var debouncedText: String
 
     let apiClient = APIClient()
     
     
     init(initialSearchString: String, delay: Double = 0.75) {
         _currentText = Published(initialValue: initialSearchString)
-        _debouncedText = Published(initialValue: initialSearchString)
         
         textUpdateSubscriber =  $currentText
             .debounce(for: .seconds(delay), scheduler: RunLoop.main)
