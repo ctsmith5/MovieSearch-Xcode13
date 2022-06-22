@@ -30,7 +30,7 @@ class MovieDetailViewModel: ObservableObject {
         })
     }
     
-    func convertImageData(_ data: Data) -> Image {
+    private func convertImageData(_ data: Data) -> Image {
         if let uiImage = UIImage(data: data) {
             return Image(uiImage: uiImage)
         } else {

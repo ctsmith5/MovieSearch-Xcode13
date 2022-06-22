@@ -16,10 +16,11 @@ class APIClient: ObservableObject {
     var movieListPublisher: AnyPublisher<MovieResponse, Error>?
     var movieImagePublisher: AnyPublisher<Data,Error>?
     
+    static var urlString = "https://api.themoviedb.org/3/search/movie"
     
     func fetchMovies(searchTerm: String, page: Int = 1, allowMatureResults explicit: Bool = false) {
         guard !searchTerm.isEmpty else { return }
-        guard let url = URL(string: "https://api.themoviedb.org/3/search/movie") else { return }
+        guard let url = URL(string: APIClient.urlString ) else { return }
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.queryItems = [URLQueryItem(name: "api_key", value: APIClient.apiKey),
